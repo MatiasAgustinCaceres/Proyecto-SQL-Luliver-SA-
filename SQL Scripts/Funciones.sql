@@ -70,4 +70,3 @@ DELIMITER ;
 -- SELECT fn_stock_total_producto_por_nombre('Leche Entera') AS stock_total;
 -- SELECT fn_salario_promedio_sector('Lacteos') AS salario_promedio;
 -- =========================
-

@@ -12,49 +12,49 @@ USE LuliverSA;
 -- Tabla Sucursal
 CREATE TABLE Sucursal (
     id_sucursal INT AUTO_INCREMENT PRIMARY KEY,
-    direccion VARCHAR(30),
-    mail VARCHAR(30)
+    direccion VARCHAR(30) NOT NULL,
+    mail VARCHAR(30) NOT NULL
 );
 
 -- Tabla Proveedores
 CREATE TABLE Proveedores (
-    id_provedor INT AUTO_INCREMENT PRIMARY KEY,
-    razon_social VARCHAR(30),
-    contacto VARCHAR(30)
+    id_proveedor INT AUTO_INCREMENT PRIMARY KEY,
+    razon_social VARCHAR(30) NOT NULL,
+    contacto VARCHAR(30) NOT NULL
 );
 
 -- Tabla Categorias
 CREATE TABLE Categorias (
     id_categoria INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(30)
+    nombre VARCHAR(30) NOT NULL
 );
 
 -- Tabla Sectores
 CREATE TABLE Sectores (
     id_sector INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(30),
-    id_sucursal INT,
+    nombre VARCHAR(30) NOT NULL,
+    id_sucursal INT NOT NULL,
     FOREIGN KEY (id_sucursal) REFERENCES Sucursal(id_sucursal)
 );
 
 -- Tabla Productos
 CREATE TABLE Productos (
     id_producto INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(30),
-    precio DECIMAL(10,2),
-    id_provedor INT,
-    id_categoria INT,
-    FOREIGN KEY (id_provedor) REFERENCES Proveedores(id_provedor),
+    nombre VARCHAR(30) NOT NULL,
+    precio DECIMAL(10,2) NOT NULL CHECK (precio > 0),
+    id_proveedor INT NOT NULL,
+    id_categoria INT NOT NULL,
+    FOREIGN KEY (id_proveedor) REFERENCES Proveedores(id_proveedor),
     FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria)
 );
 
 -- Tabla Inventari
 CREATE TABLE Inventario (
     id_inventario INT AUTO_INCREMENT PRIMARY KEY,
-    id_producto INT,
-    id_sucursal INT,
-    id_sector INT,
-    stock_actual INT,
+    id_producto INT NOT NULL,
+    id_sucursal INT NOT NULL,
+    id_sector INT NOT NULL,
+    stock_actual INT NOT NULL CHECK (stock_actual >= 0),
     FOREIGN KEY (id_producto) REFERENCES Productos(id_producto),
     FOREIGN KEY (id_sucursal) REFERENCES Sucursal(id_sucursal),
     FOREIGN KEY (id_sector) REFERENCES Sectores(id_sector)
@@ -63,12 +63,12 @@ CREATE TABLE Inventario (
 -- Tabla Empleados
 CREATE TABLE Empleados (
     id_empleado INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(30),
-    apellido VARCHAR(30),
-    puesto VARCHAR(30),
-    salario INT,
-    id_sucursal INT,
-    id_sector INT,
+    nombre VARCHAR(30) NOT NULL,
+    apellido VARCHAR(30) NOT NULL,
+    puesto VARCHAR(30) NOT NULL,
+    salario DECIMAL(10,2) NOT NULL CHECK (salario > 0),
+    id_sucursal INT NOT NULL,
+    id_sector INT NOT NULL,
     FOREIGN KEY (id_sucursal) REFERENCES Sucursal(id_sucursal),
     FOREIGN KEY (id_sector) REFERENCES Sectores(id_sector)
 );
@@ -114,7 +114,7 @@ INSERT INTO Sectores (nombre, id_sucursal) VALUES
 ('Almacen', 4);
 
 -- Productos
-INSERT INTO Productos (nombre, precio, id_provedor, id_categoria) VALUES
+INSERT INTO Productos (nombre, precio, id_proveedor, id_categoria) VALUES
 ('Leche Entera', 450.50, 1, 1),
 ('Yogur Natural', 380.00, 4, 1),
 ('Queso Cremoso', 1250.75, 5, 1),
@@ -157,22 +157,22 @@ INSERT INTO Inventario (id_producto, id_sucursal, id_sector, stock_actual) VALUE
 
 -- Empleados
 INSERT INTO Empleados (nombre, apellido, puesto, salario, id_sucursal, id_sector) VALUES
-('Juan', 'Perez', 'Cajero', 300000, 1, 2),
-('Maria', 'Gomez', 'Cajera', 305000, 1, 2),
-('Carlos', 'Diaz', 'Repositor', 280000, 1, 1),
-('Laura', 'Fernandez', 'Supervisor', 420000, 1, 3),
-('Lucia', 'Martinez', 'Cajera', 300000, 2, 5),
-('Ana', 'Lopez', 'Cajera', 305000, 2, 5),
-('Lucas', 'Suarez', 'Repositor', 285000, 2, 4),
-('Martin', 'Romero', 'Supervisor', 430000, 2, 4),
-('Sofia', 'Alvarez', 'Cajera', 300000, 3, 6),
-('Paula', 'Benitez', 'Cajera', 305000, 3, 6),
-('Diego', 'Mendez', 'Repositor', 290000, 3, 7),
-('Nicolas', 'Vega', 'Supervisor', 440000, 3, 7),
-('Carla', 'Rios', 'Cajera', 300000, 4, 8),
-('Julieta', 'Silva', 'Cajera', 305000, 4, 8),
-('Andres', 'Torres', 'Repositor', 285000, 4, 8),
-('Federico', 'Luna', 'Supervisor', 435000, 4, 8);
+('Juan', 'Perez', 'Cajero', 300000.00, 1, 2),
+('Maria', 'Gomez', 'Cajera', 305000.00, 1, 2),
+('Carlos', 'Diaz', 'Repositor', 280000.00, 1, 1),
+('Laura', 'Fernandez', 'Supervisor', 420000.00, 1, 3),
+('Lucia', 'Martinez', 'Cajera', 300000.00, 2, 5),
+('Ana', 'Lopez', 'Cajera', 305000.00, 2, 5),
+('Lucas', 'Suarez', 'Repositor', 285000.00, 2, 4),
+('Martin', 'Romero', 'Supervisor', 430000.00, 2, 4),
+('Sofia', 'Alvarez', 'Cajera', 300000.00, 3, 6),
+('Paula', 'Benitez', 'Cajera', 305000.00, 3, 6),
+('Diego', 'Mendez', 'Repositor', 290000.00, 3, 7),
+('Nicolas', 'Vega', 'Supervisor', 440000.00, 3, 7),
+('Carla', 'Rios', 'Cajera', 300000.00, 4, 8),
+('Julieta', 'Silva', 'Cajera', 305000.00, 4, 8),
+('Andres', 'Torres', 'Repositor', 285000.00, 4, 8),
+('Federico', 'Luna', 'Supervisor', 435000.00, 4, 8);
 
 -- =========================
 -- Verificación de carga de datos:

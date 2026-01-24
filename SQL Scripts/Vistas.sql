@@ -46,7 +46,7 @@ SELECT DISTINCT
 FROM Inventario i
 JOIN Sucursal s ON i.id_sucursal = s.id_sucursal
 JOIN Productos p ON i.id_producto = p.id_producto
-JOIN Proveedores pr ON p.id_provedor = pr.id_provedor;
+JOIN Proveedores pr ON p.id_proveedor = pr.id_proveedor;
 
 -- Vista de gasto en salarios por sucursal. Mensual y proyección anual.
 CREATE VIEW vista_gasto_salarios_por_sucursal AS
