@@ -44,9 +44,6 @@ DELIMITER ;
 -- =========================
 -- Verificación de funcionamiento:
 
--- INSERT INTO Inventario (id_producto, id_sucursal, id_sector, stock_actual)
--- VALUES (1, 1, 1, -10);
-
--- INSERT INTO Empleados (nombre, apellido, puesto, salario, id_sucursal, id_sector)
--- VALUES ('Test', 'Error', 'Cajero', -5000, 1, 1);
+-- INSERT INTO Inventario (id_producto, id_sucursal, id_sector, stock_actual) VALUES (1, 1, 1, -10);
+-- INSERT INTO Empleados (nombre, apellido, puesto, salario, id_sucursal, id_sector) VALUES ('Test', 'Error', 'Cajero', -5000, 1, 1);
 -- =========================
